@@ -16,7 +16,7 @@ const Foreground = () => {
 
     // ✅ Load from localStorage on mount
     useEffect(() => {
-        axios.get('http://localhost:5000/api/cards')
+        axios.get('https://docs-mini-8kkm.onrender.com/api/cards')
             .then(res => setData(res.data))
             .catch(err => console.error('Fetch error:', err));
     }, []);
@@ -50,7 +50,7 @@ const Foreground = () => {
         };
 
         try {
-            const res = await axios.post('http://localhost:5000/api/cards', newData);
+            const res = await axios.post('https://docs-mini-8kkm.onrender.com/api/cards', newData);
             setData(prev => [...prev, res.data]);
             setNewDoc({ title: '', desc: '', file: null });
             setShowForm(false);
@@ -62,7 +62,7 @@ const Foreground = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/cards/${id}`);
+            await axios.delete(`https://docs-mini-8kkm.onrender.com/api/cards/${id}`);
             setData(prev => prev.filter(item => item._id !== id));
         } catch (err) {
             console.error('Delete error:', err);

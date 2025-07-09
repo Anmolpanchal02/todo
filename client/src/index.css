@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+
+*{
+  font-family: Gilroy;
+}
+
+::selection{
+  color: rgb(232, 145, 47);
+}
+
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

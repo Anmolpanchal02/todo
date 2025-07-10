@@ -44,7 +44,7 @@ const App = ({ onClose, onAuthSuccess }) => { // Renamed to App for default expo
 
     try {
       // Determine the API endpoint based on whether it's login or signup
-      const url = `http://localhost:5000/api/auth/${isLogin ? 'login' : 'signup'}`;
+      const url = `https://docs-mini-8kkm.onrender.com/api/auth/${isLogin ? 'login' : 'signup'}`;
       
       // Prepare the payload for the API request
       const payload = {

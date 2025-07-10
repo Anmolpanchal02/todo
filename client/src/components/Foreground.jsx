@@ -25,7 +25,7 @@
                 setData([]);
                 return;
             }
-            axios.get('http://localhost:5000/api/cards', {
+            axios.get('https://docs-mini-8kkm.onrender.com/api/cards', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then(res => {
@@ -58,7 +58,7 @@
             }
 
             try {
-                const res = await axios.post('http://localhost:5000/api/cards', formData, { // <-- Send FormData
+                const res = await axios.post('https://docs-mini-8kkm.onrender.com/api/cards', formData, { // <-- Send FormData
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data' // <-- IMPORTANT: Set content type for file upload
@@ -103,7 +103,7 @@
                 return;
             }
             try {
-                await axios.delete(`http://localhost:5000/api/cards/${id}`, {
+                await axios.delete(`https://docs-mini-8kkm.onrender.com/api/cards/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setData(prev => prev.filter(item => item._id !== id));
@@ -124,7 +124,7 @@
                 return;
             }
             try {
-                const res = await axios.patch(`http://localhost:5000/api/cards/${id}`, updatedFields, {
+                const res = await axios.patch(`https://docs-mini-8kkm.onrender.com/api/cards/${id}`, updatedFields, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setData(prev => prev.map(card => (card._id === id ? res.data : card)));

@@ -115,9 +115,9 @@ const Card = ({ data, reference, onDelete, onSave }) => {
             </div>
 
             {/* File size + Delete Icon */}
-            <div className='px-6 pb-2'>
+            <div className='px-6 pb-2 '>
                 <div className='flex items-center gap-4 justify-between'>
-                    <span className='text-sm font-semibold text-white flex items-center gap-2'>
+                    <span className='text-sm font-semibold text-white flex items-center gap-32'>
                         {data.filesize}
                         {!isEditing && (
                             <button

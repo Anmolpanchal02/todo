@@ -17,7 +17,7 @@ const Foreground = () => {
     const [showForm, setShowForm] = useState(false);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [isAddingDocument, setIsAddingDocument] = useState(false); // Loading state for add document
+    const [isAddingDocument, setIsAddingDocument] = useState(false); // <-- NEW: Loading state for add document
 
     // Fetch cards for the logged-in user
     useEffect(() => {
@@ -43,20 +43,21 @@ const Foreground = () => {
     }, [token]);
 
     // Handler for adding a new card (now accepts FormData)
-    const handleAddCard = async (formData) => {
+    const handleAddCard = async (formData) => { // <-- Accepts FormData
         if (!token) {
             setAlertType('error');
             setAlertMsg("❌ You must be logged in to add documents.");
             setShowAuthModal(true);
             return;
         }
+        // Basic validation for title/desc (file is optional)
         if (!formData.get('title') || !formData.get('desc')) {
             setAlertType('error');
             setAlertMsg("❌ Title and description cannot be empty.");
             return;
         }
 
-        setIsAddingDocument(true); // Set loading to true
+        setIsAddingDocument(true); // <-- Set loading to true BEFORE API call
 
         try {
             // --- TEMPORARY DELAY FOR TESTING LOADER VISIBILITY ---
@@ -84,11 +85,11 @@ const Foreground = () => {
                 setShowAuthModal(true);
             }
         } finally {
-            setIsAddingDocument(false); // Set loading to false in finally block
+            setIsAddingDocument(false); // <-- Set loading to false AFTER API call (success or failure)
         }
     };
 
-    const handleAuthSuccess = (receivedToken) => {
+    const handleAuthSuccess = (receivedToken, wasLogin) => {
         setToken(receivedToken);
         localStorage.setItem('token', receivedToken);
         setShowAuthModal(false);
@@ -99,7 +100,8 @@ const Foreground = () => {
         localStorage.removeItem('token');
         setToken(null);
         setData([]);
-        
+        setAlertType('success');
+        setAlertMsg("👋 You have been logged out!");
     };
 
     const handleDelete = async (id) => {
@@ -162,7 +164,7 @@ const Foreground = () => {
 
             <button
                 onClick={() => {
-                    console.log('Plus button clicked. Current token:', token, 'Current showForm:', showForm); // <-- ADDED FOR DEBUGGING
+                    // console.log('Plus button clicked. Current token:', token, 'Current showForm:', showForm); // Debugging line (can be removed)
                     if (!token) {
                         setAlertType('error');
                         setAlertMsg("❌ Please log in to add documents.");
@@ -193,7 +195,7 @@ const Foreground = () => {
                     setPreviewURL={setPreviewURL}
                     handleAddCard={handleAddCard}
                     onClose={() => setShowForm(false)}
-                    isAddingDocument={isAddingDocument} // Pass loading state
+                    isAddingDocument={isAddingDocument} // <-- Pass loading state to UploadForm
                 />
             )}
 

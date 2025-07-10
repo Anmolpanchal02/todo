@@ -148,7 +148,7 @@ const UploadForm = ({ newDoc, setNewDoc, previewURL, setPreviewURL, handleAddCar
                   <span className="font-medium text-blue-600">Click to upload</span> or drag and drop
                 </p>
                 <p className="text-xs text-gray-500">
-                  PDF, DOC, DOCX, or image files
+                   image files
                 </p>
               </div>
             </div>

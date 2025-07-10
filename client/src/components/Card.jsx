@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom'; // <-- Import ReactDOM for createPortal
 import { FaRegFileAlt, FaEdit } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { motion } from 'framer-motion';
@@ -17,8 +18,8 @@ const PreviewModal = ({ fileURL, onClose }) => {
   const isImage = isImageFile(fileURL);
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 ">
-      <div className="relative bg-zinc-900 rounded-lg shadow-xl max-w-3xl  flex flex-col w-[80vw]   lg:w-[20vw] overflow-hidden">
+    <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
+      <div className="relative bg-zinc-900 rounded-lg shadow-xl max-w-3xl flex flex-col w-[80vw] lg:w-[20vw] overflow-hidden">
         {/* Modal Header */}
         <div className="flex justify-between items-center p-3 bg-zinc-800 border-b border-zinc-700">
           <h3 className="text-white text-lg font-semibold">Image Preview</h3>
@@ -32,11 +33,10 @@ const PreviewModal = ({ fileURL, onClose }) => {
         </div>
 
         {/* Modal Content - Image Viewer */}
-        <div className="flex-grow flex items-center justify-center bg-zinc-900 w-[80vw]  lg:w-[20vw]  mx-auto  p-4">
+        <div className="flex-grow flex items-center justify-center bg-zinc-900 w-[80vw] lg:w-[20vw] mx-auto p-4">
           {isImage ? (
-           
-            <div className="bg-zinc-800 p-2 rounded-lg flex items-center justify-center max-w-full max-h-full overflow-auto"> {/* <-- overflow-auto जोड़ा गया */}
-              <img src={fileURL} alt="Image Preview" className="w-[80vw]  lg:w-[20vw] object-contain overflow-scroll rounded" />
+            <div className="bg-zinc-800 p-2 rounded-lg flex items-center justify-center max-w-full max-h-full overflow-auto">
+              <img src={fileURL} alt="Image Preview" className="w-[80vw] lg:w-[20vw] object-contain overflow-scroll rounded" />
             </div>
           ) : (
             <div className="text-white text-center p-4">
@@ -166,9 +166,12 @@ const Card = ({ data, reference, onDelete, onSave }) => {
                 )
             )}
 
-            {/* Preview Modal */}
+            {/* Preview Modal - Now portaled to document.body */}
             {showPreviewModal && data.fileURL && (
-                <PreviewModal fileURL={data.fileURL} onClose={() => setShowPreviewModal(false)} />
+                ReactDOM.createPortal(
+                    <PreviewModal fileURL={data.fileURL} onClose={() => setShowPreviewModal(false)} />,
+                    document.body // Render the modal directly into the document body
+                )
             )}
         </motion.div>
     );

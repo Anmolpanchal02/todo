@@ -204,7 +204,7 @@ const Background = () => {
                 </div>
                 <h1 
                     ref={mainTitleRef}
-                    className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] text-[13vw] leading-none tracking-tighter font-semibold cursor-default select-none'
+                    className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] text-[13vw] sm:text-[10vw] md:text-[8vw] leading-none tracking-tighter font-semibold cursor-default select-none'
                     style={{ 
                         opacity: 0, 
                         transform: 'translateX(-50%) translateY(-50%) translateY(100px) scale(0.8)',
